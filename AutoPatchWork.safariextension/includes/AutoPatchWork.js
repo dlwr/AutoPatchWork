@@ -683,6 +683,12 @@
         return;
       }
       docs.forEach(function (doc, i, docs) {
+        Array.prototype.forEach.call(doc.querySelectorAll('img'), function(img) {
+          var lazySrc = img.hasAttribute('data-src') ? img.getAttribute('data-src') : img.getAttribute('data-lazy-src');
+          if (lazySrc) {
+            img.src = lazySrc;
+          }
+        });
         var insert_node = append_point.insertBefore(document.importNode(doc, true), insert_point);
         var mutation = {
           targetNode: insert_node,
